@@ -45,7 +45,7 @@
             @endif
 
               <!-- form start -->
-              <form role="form" id="frm-add-product" method="post" action="{{route('editsaveproducts')}}">
+              <form role="form" enctype="multipart/form-data" id="frm-add-product" method="post" action="{{route('editsaveproducts')}}">
               {{csrf_field()}}
               <input type="hidden" value="{{ $name->id }}" name="update_id"/>
                 <div class="card-body">
@@ -60,6 +60,11 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                  </div>
+
+                  <div class="form-group">
                     <label for="features">Product Features</label>
                     <input type="text" class="form-control" value="{{ $name->features }}" name="features" id="features" placeholder="Product Features">
                   </div>
@@ -71,7 +76,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Update</button>
                 </div>
               </form>
             </div>

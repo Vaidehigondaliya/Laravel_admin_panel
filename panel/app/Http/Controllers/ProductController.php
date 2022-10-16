@@ -21,11 +21,15 @@ class ProductController extends Controller
     public function listallProduct(){
         $products = Product::query();
         return Datatables::of($products)
+        ->editColumn("image", function($products) {
+
+            return '<img src="' . $products->image . '" style="height:100px;width:100px;"/>';
+        })
         ->editColumn("action", function($products) {
             return '<a href="'.URL::to('/edit-product/'.$products->id).'" class="btn btn-info class-product-edit" data-id="' . $products->id . '">Edit</a>
             <a href="javascript:void(0)" class="btn btn-danger class-product-delete" data-id="' . $products->id . '">Delete</a>';
         })
-        ->rawColumns(["action"])
+        ->rawColumns(["action","image"])
         ->make(true);
     }
     public function saveProduct(Request $request){
@@ -35,17 +39,28 @@ class ProductController extends Controller
                 ), array(
             "name" => "required|unique:products"
         ));
-
-        
+    
         if ($validator->fails()) {
 
             return redirect("add-product")->withErrors($validator)->withInput();
         } else {
+            // dd($request->all());
 
             // successfully we have passed our form
             $products = new Product;
             $products->name = $request->name;
             $products->description = $request->description;
+
+            $valid_images = array("png", "jpg", "jpeg", "gif");
+
+            if ($request->hasFile("image") && in_array($request->image->extension(), $valid_images)) {
+
+                $image = $request->image;
+                $imageName = time() . "." . $image->getClientOriginalName();
+                $image->move("resource/assets/images/products/", $imageName);
+                $uploadedImage = "resource/assets/images/products/" . $imageName;
+                $products->image = $uploadedImage;
+            }
             $products->features = $request->features;
 
             $products->save();
@@ -81,6 +96,18 @@ class ProductController extends Controller
         $products = Product::find($update_id);
         $products->name = $request->name;
         $products->description = $request->description;
+
+        $valid_images = array("png", "jpg", "jpeg", "gif");
+
+            if ($request->hasFile("image") && in_array($request->image->extension(), $valid_images)) {
+
+                $image = $request->image;
+                $imageName = time() . "." . $image->getClientOriginalName();
+                $image->move("resource/assets/images/products/", $imageName);
+                $uploadedImage = "resource/assets/images/products/" . $imageName;
+                $products->image = $uploadedImage;
+            }
+            
         $products->features = $request->features;
 
         $products->save();

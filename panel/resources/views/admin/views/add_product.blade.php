@@ -45,15 +45,13 @@
             @endif
 
               <!-- form start -->
-              <form role="form" id="frm-add-product" method="post" action="{{route('saveproducts')}}">
+              <form role="form" id="frm-add-product" enctype="multipart/form-data" method="post" action="{{route('saveproducts')}}">
               {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Product Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter Product Name">
-                  </div>
-                 
-                 
+                  </div> 
 
                   <div class="form-group">
                     <label for="description">Product Description</label>
@@ -61,13 +59,14 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="image">Product Image</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                  </div>
+
+                  <div class="form-group">
                     <label for="features">Product Features</label>
                     <input type="text" class="form-control" name="features" id="features" placeholder="Product Features">
                   </div>
-                  <!-- <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div> -->
                 </div>
                 <!-- /.card-body -->
 

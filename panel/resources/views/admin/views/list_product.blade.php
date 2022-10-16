@@ -34,6 +34,7 @@
                                 <th>Id</th>
                                 <th>Product Name</th>
                                 <th>Description</th>
+                                <th>Image</th>
                                 <th>Features</th>
                                 <th>Action</th>
                             </tr>

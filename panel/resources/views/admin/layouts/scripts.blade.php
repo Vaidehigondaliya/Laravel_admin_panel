@@ -50,17 +50,18 @@
         if($('#product-sections').length > 0){    
             $('#product-sections').DataTable({ // code for list sections
               processing: true,
-               serverSide: true,
+              serverSide: true,
                
-               ajax: "{{ route('listallroducts') }}",
-               columns: [
-                        { data: 'id', name: 'id' },
-                        { data: 'name', name: 'name' },
-                        { data: 'description', name: 'description' },
-                        { data: 'features', name: 'features' },
-                        // { data: 'action', name: 'action' },
-                        { data: 'action',"searchable": true, name: 'action' },
-                     ]    
+              ajax: "{{ route('listallroducts') }}",
+              columns: [
+                      { data: 'id', name: 'id' },
+                      { data: 'name', name: 'name' },
+                      { data: 'description', name: 'description' },
+                      { data: 'image', name: 'image' },
+                      { data: 'features', name: 'features' },
+                      { data: 'action', name: 'action' },
+                      // { data: 'action',"searchable": true, name: 'action' },
+                    ]    
             });
         }    
     });
